@@ -29,6 +29,7 @@ body {
     padding: 25px 20px;
     text-align: center;
     color: #fff;
+    position: relative;
 }
 
 .header h1 {
@@ -49,6 +50,32 @@ body {
     display: inline-block;
     padding: 6px 16px;
     border-radius: 20px;
+}
+
+.sound-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.3);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.sound-toggle:hover {
+    background: rgba(255,255,255,0.5);
+    transform: scale(1.05);
+}
+
+.sound-toggle.off {
+    background: rgba(255,100,100,0.5);
+    border-color: rgba(255,100,100,0.8);
 }
 
 /* Info Section */
@@ -369,6 +396,7 @@ body {
 
 .drop-zone.over { background: #eef1ff; border-color: #667eea; transform: scale(1.03); }
 .drop-zone.filled { border-style: solid; border-color: #4caf50; background: #e8f5e9; }
+.drop-zone.wrong { border-color: #f44336; background: #ffebee; animation: shake 0.4s; }
 
 .drop-zone .zone-emoji { font-size: 2rem; }
 .drop-zone .zone-label {
@@ -452,35 +480,6 @@ body {
     border-color: #4caf50;
 }
 
-/* ===== OPTIONS (BONUS) ===== */
-.options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-}
-
-.option-btn {
-    background: #fff;
-    border: 3px solid #e0e0e0;
-    border-radius: 14px;
-    padding: 18px 12px;
-    cursor: pointer;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #444;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.option-btn:hover { border-color: #4facfe; background: #f0f9ff; transform: translateY(-3px); }
-.option-btn.correct { border-color: #4caf50; background: #e8f5e9; animation: pulse 0.5s; }
-.option-btn.wrong { border-color: #f44336; background: #ffebee; animation: shake 0.5s; }
-.option-btn .emoji { font-size: 2rem; }
-
 /* Feedback */
 .feedback {
     margin-top: 18px;
@@ -557,21 +556,10 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-8px); }
     75% { transform: translateX(8px); }
-}
-
-@keyframes bounceIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    70% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Responsive */
@@ -581,6 +569,7 @@ body {
     .header h1 { font-size: 1.5rem; }
     .header p { font-size: 0.85rem; }
     .subtitle { font-size: 0.75rem !important; }
+    .sound-toggle { top: 8px; right: 8px; font-size: 0.7rem; padding: 6px 10px; }
     .info-card { padding: 15px; }
     .info-card h2 { font-size: 1.1rem; }
     .info-grid { grid-template-columns: 1fr; }
@@ -601,9 +590,6 @@ body {
     .drop-zone { min-height: 95px; padding: 10px 6px; }
     .drop-zone .zone-emoji { font-size: 1.6rem; }
     .drop-zone .zone-label { font-size: 0.75rem; }
-    .options-grid { grid-template-columns: repeat(2, 1fr); }
-    .option-btn { padding: 14px 8px; font-size: 0.85rem; }
-    .option-btn .emoji { font-size: 1.6rem; }
     .result-emoji { font-size: 3rem; }
     .result-area h2 { font-size: 1.4rem; }
 }
@@ -611,5 +597,4 @@ body {
 @media (max-width: 400px) {
     .menu-grid { grid-template-columns: 1fr; }
     .memory-grid { grid-template-columns: repeat(3, 1fr); }
-    .options-grid { grid-template-columns: 1fr; }
 }
