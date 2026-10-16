@@ -8,29 +8,28 @@ function initAudio() {
     if (!audioCtx) {
         try {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-            console.log('Audio tidak disokong');
-        }
+        } catch (e) { console.log('Audio tidak disokong'); }
     }
-    if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 }
 
 function toggleSound() {
     soundEnabled = !soundEnabled;
     const btn = document.getElementById('soundToggle');
+    const icon = document.getElementById('soundIcon');
+    const label = document.getElementById('soundLabel');
     if (soundEnabled) {
-        btn.textContent = '🔊 Bunyi: ON';
+        icon.textContent = '🔊';
+        label.textContent = 'Bunyi ON';
         btn.classList.remove('off');
-        playPick(); // Feedback bunyi
+        playPick();
     } else {
-        btn.textContent = '🔇 Bunyi: OFF';
+        icon.textContent = '🔇';
+        label.textContent = 'Bunyi OFF';
         btn.classList.add('off');
     }
 }
 
-// Main satu nada
 function playTone(freq, duration = 0.15, type = 'sine', volume = 0.12, delay = 0) {
     if (!soundEnabled) return;
     initAudio();
@@ -51,26 +50,20 @@ function playTone(freq, duration = 0.15, type = 'sine', volume = 0.12, delay = 0
     } catch (e) { /* silent */ }
 }
 
-// 🎵 BUNYI BETUL - Melodi naik ceria (C-E-G-C)
 function playCorrect() {
-    playTone(523.25, 0.12, 'sine', 0.15, 0);      // C5
-    playTone(659.25, 0.12, 'sine', 0.15, 0.1);    // E5
-    playTone(783.99, 0.15, 'sine', 0.15, 0.2);    // G5
-    playTone(1046.50, 0.25, 'sine', 0.15, 0.3);   // C6
+    playTone(523.25, 0.12, 'sine', 0.15, 0);
+    playTone(659.25, 0.12, 'sine', 0.15, 0.1);
+    playTone(783.99, 0.15, 'sine', 0.15, 0.2);
+    playTone(1046.50, 0.25, 'sine', 0.15, 0.3);
 }
 
-// ❌ BUNYI SALAH - Buzz rendah
 function playWrong() {
     playTone(220, 0.15, 'sawtooth', 0.1, 0);
     playTone(165, 0.3, 'sawtooth', 0.1, 0.13);
 }
 
-// 🎯 BUNYI PILIH - Tick pendek
-function playPick() {
-    playTone(800, 0.06, 'square', 0.08, 0);
-}
+function playPick() { playTone(800, 0.06, 'square', 0.08, 0); }
 
-// 🃏 BUNYI FLIP KAD - Whoosh lembut
 function playFlip() {
     if (!soundEnabled) return;
     initAudio();
@@ -90,46 +83,33 @@ function playFlip() {
     } catch (e) { /* silent */ }
 }
 
-// 💧 BUNYI DROP - Plop menyeronokkan
 function playDrop() {
     playTone(700, 0.08, 'sine', 0.12, 0);
     playTone(500, 0.12, 'sine', 0.1, 0.06);
 }
 
-// ⭐ BUNYI MARKAH NAIK - Ding tinggi
 function playScore() {
-    playTone(1318.51, 0.1, 'sine', 0.1, 0);   // E6
-    playTone(1567.98, 0.15, 'sine', 0.1, 0.08); // G6
+    playTone(1318.51, 0.1, 'sine', 0.1, 0);
+    playTone(1567.98, 0.15, 'sine', 0.1, 0.08);
 }
 
-// 🎉 BUNYI SELESAI LEVEL - Fanfare
 function playLevelComplete() {
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
-    notes.forEach((freq, i) => {
-        playTone(freq, 0.2, 'triangle', 0.15, i * 0.12);
-    });
-    playTone(1318.51, 0.4, 'triangle', 0.15, 0.5); // E6 panjang
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, i) => { playTone(freq, 0.2, 'triangle', 0.15, i * 0.12); });
+    playTone(1318.51, 0.4, 'triangle', 0.15, 0.5);
 }
 
-// 🏆 BUNYI TAMAT AKTIVITI - Melodi kemenangan
 function playVictory() {
     const melody = [
-        { f: 523.25, d: 0.15, t: 0 },     // C5
-        { f: 523.25, d: 0.15, t: 0.15 },  // C5
-        { f: 523.25, d: 0.15, t: 0.3 },   // C5
-        { f: 523.25, d: 0.3, t: 0.45 },   // C5 panjang
-        { f: 415.30, d: 0.3, t: 0.8 },    // Ab4
-        { f: 466.16, d: 0.3, t: 1.1 },    // Bb4
-        { f: 523.25, d: 0.5, t: 1.4 },    // C5 panjang
-        { f: 466.16, d: 0.2, t: 1.9 },    // Bb4
-        { f: 523.25, d: 0.8, t: 2.1 }     // C5 sangat panjang
+        { f: 523.25, d: 0.15, t: 0 }, { f: 523.25, d: 0.15, t: 0.15 },
+        { f: 523.25, d: 0.15, t: 0.3 }, { f: 523.25, d: 0.3, t: 0.45 },
+        { f: 415.30, d: 0.3, t: 0.8 }, { f: 466.16, d: 0.3, t: 1.1 },
+        { f: 523.25, d: 0.5, t: 1.4 }, { f: 466.16, d: 0.2, t: 1.9 },
+        { f: 523.25, d: 0.8, t: 2.1 }
     ];
-    melody.forEach(n => {
-        playTone(n.f, n.d, 'triangle', 0.15, n.t);
-    });
+    melody.forEach(n => playTone(n.f, n.d, 'triangle', 0.15, n.t));
 }
 
-// 🚀 BUNYI MULA
 function playStart() {
     playTone(440, 0.1, 'sine', 0.12, 0);
     playTone(660, 0.15, 'sine', 0.12, 0.08);
@@ -146,9 +126,9 @@ const activities = {
             1: {
                 question: "Padankan senaman regangan dengan otot paha yang terlibat!",
                 pairs: [
-                    { left: "🦵 Regangan Paha Depan", right: "Otot Paha Depan (Quadriceps)" },
-                    { left: "🦵 Regangan Paha Belakang", right: "Otot Paha Belakang (Hamstring)" },
-                    { left: "🦵 Regangan Kaki", right: "Otot Betis (Calf)" }
+                    { left: "🦵 Regangan Paha Depan", right: "Otot Paha Depan" },
+                    { left: "🦵 Regangan Paha Belakang", right: "Otot Paha Belakang" },
+                    { left: "🦵 Regangan Kaki", right: "Otot Betis" }
                 ]
             },
             2: {
@@ -171,7 +151,7 @@ const activities = {
                 items: [
                     { id: "bahu", label: "Otot Bahu", emoji: "💪" },
                     { id: "leher", label: "Otot Leher", emoji: "🧠" },
-                    { id: "lengan", label: "Otot Lengan", emoji: "💪" }
+                    { id: "lengan", label: "Otot Lengan", emoji: "🦾" }
                 ],
                 zones: [
                     { id: "bahu", label: "Bahu", emoji: "🤸" },
@@ -182,16 +162,16 @@ const activities = {
             2: {
                 question: "Seret senaman regangan ke otot yang betul!",
                 items: [
-                    { id: "shrug", label: "Shrug (Angkat Bahu)", emoji: "🤷" },
+                    { id: "shrug", label: "Shrug", emoji: "🤷" },
                     { id: "neck", label: "Neck Stretch", emoji: "🧍" },
                     { id: "arm", label: "Arm Circles", emoji: "🔄" },
                     { id: "shoulder", label: "Shoulder Roll", emoji: "🔃" }
                 ],
                 zones: [
-                    { id: "shrug", label: "Otot Trapezius", emoji: "💪" },
-                    { id: "neck", label: "Otot Leher", emoji: "🧠" },
-                    { id: "arm", label: "Otot Lengan", emoji: "🦾" },
-                    { id: "shoulder", label: "Otot Bahu", emoji: "🤸" }
+                    { id: "shrug", label: "Trapezius", emoji: "💪" },
+                    { id: "neck", label: "Leher", emoji: "🧠" },
+                    { id: "arm", label: "Lengan", emoji: "🦾" },
+                    { id: "shoulder", label: "Bahu", emoji: "🤸" }
                 ]
             }
         }
@@ -217,11 +197,11 @@ const activities = {
                     { id: 1, label: "Otot Tangan", emoji: "🤚", matchId: 1 },
                     { id: 2, label: "Otot Lengan", emoji: "💪", matchId: 2 },
                     { id: 3, label: "Otot Jari", emoji: "👆", matchId: 3 },
-                    { id: 4, label: "Otot Pergelangan", emoji: "🖐️", matchId: 4 },
+                    { id: 4, label: "Pergelangan", emoji: "🖐️", matchId: 4 },
                     { id: 1, label: "Otot Tangan", emoji: "🤚", matchId: 1 },
                     { id: 2, label: "Otot Lengan", emoji: "💪", matchId: 2 },
                     { id: 3, label: "Otot Jari", emoji: "👆", matchId: 3 },
-                    { id: 4, label: "Otot Pergelangan", emoji: "🖐️", matchId: 4 }
+                    { id: 4, label: "Pergelangan", emoji: "🖐️", matchId: 4 }
                 ]
             }
         }
@@ -242,7 +222,7 @@ const activities = {
                 question: "Padankan senaman dengan otot badan atas!",
                 pairs: [
                     { left: "🤸 Sit-Up", right: "Otot Perut" },
-                    { left: "🏋️ Push-Up", right: "Otot Dada & Lengan" },
+                    { left: "🏋️ Push-Up", right: "Otot Dada" },
                     { left: "🧎 Plank", right: "Otot Perut & Belakang" },
                     { left: "🚣 Row", right: "Otot Belakang" }
                 ]
@@ -297,15 +277,9 @@ const activities = {
 let currentActivity = 1;
 let currentLevel = 1;
 let totalScore = 0;
-
-// Padanan
 let selectedLeft = null;
 let matchedPairs = [];
-
-// Drag & Drop
 let draggedItem = null;
-
-// Memori
 let flippedCards = [];
 let matchedMemory = 0;
 let lockBoard = false;
@@ -325,6 +299,7 @@ const resultTitle = document.getElementById('resultTitle');
 const resultEmoji = document.getElementById('resultEmoji');
 const scoreText = document.getElementById('scoreText');
 const nextBtn = document.getElementById('nextBtn');
+const starsDisplay = document.getElementById('starsDisplay');
 
 /* =====================================================
    MULA AKTIVITI
@@ -332,28 +307,23 @@ const nextBtn = document.getElementById('nextBtn');
 function startActivity(activityId) {
     initAudio();
     playStart();
-    
     currentActivity = activityId;
     currentLevel = 1;
     totalScore = 0;
-    
     document.getElementById('menuSection').classList.add('hidden');
     document.getElementById('infoSection').classList.add('hidden');
     activityArea.classList.remove('hidden');
     resultArea.classList.add('hidden');
-    
     loadLevel();
 }
 
 function loadLevel() {
     const activity = activities[currentActivity];
     const level = activity.levels[currentLevel];
-    
     activityTitle.textContent = activity.title;
-    levelText.textContent = `Level ${currentLevel}`;
+    levelText.textContent = `🎯 Level ${currentLevel}`;
     progressFill.style.width = currentLevel === 1 ? '50%' : '100%';
     scoreText.textContent = `⭐ ${totalScore}`;
-    
     feedback.classList.add('hidden');
     feedback.className = 'feedback hidden';
     selectedLeft = null;
@@ -362,41 +332,34 @@ function loadLevel() {
     flippedCards = [];
     matchedMemory = 0;
     lockBoard = false;
-    
     if (activity.type === 'match') renderMatch(level);
     else if (activity.type === 'drag') renderDrag(level);
     else if (activity.type === 'memory') renderMemory(level);
 }
 
 /* =====================================================
-   RENDER: PADANAN (MATCH)
+   RENDER: PADANAN
    ===================================================== */
 function renderMatch(level) {
-    const pairs = level.pairs;
-    const leftItems = shuffle([...pairs]);
-    const rightItems = shuffle([...pairs]);
-    
+    const leftItems = shuffle([...level.pairs]);
+    const rightItems = shuffle([...level.pairs]);
     let html = `<p class="question-text">${level.question}</p>`;
     html += `<div class="match-wrapper">`;
     html += `<div class="match-column"><h4>📌 Senaman</h4>`;
-    leftItems.forEach((p) => {
+    leftItems.forEach(p => {
         html += `<div class="match-item" data-side="left" data-key="${p.right}" onclick="selectMatch(this)">${p.left}</div>`;
     });
-    html += `</div>`;
-    html += `<div class="match-column"><h4>💪 Otot</h4>`;
-    rightItems.forEach((p) => {
+    html += `</div><div class="match-column"><h4>💪 Otot</h4>`;
+    rightItems.forEach(p => {
         html += `<div class="match-item" data-side="right" data-key="${p.right}" onclick="selectMatch(this)">${p.right}</div>`;
     });
     html += `</div></div>`;
-    
     activityContent.innerHTML = html;
 }
 
 function selectMatch(el) {
     if (el.classList.contains('matched')) return;
-    
     playPick();
-    
     if (!selectedLeft) {
         document.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
         el.classList.add('selected');
@@ -407,49 +370,37 @@ function selectMatch(el) {
             selectedLeft = null;
             return;
         }
-        
         if (selectedLeft.dataset.side === el.dataset.side) {
             selectedLeft.classList.remove('selected');
             el.classList.add('selected');
             selectedLeft = el;
             return;
         }
-        
         const first = selectedLeft;
         const second = el;
-        
         if (first.dataset.key === second.dataset.key) {
             first.classList.remove('selected');
             first.classList.add('matched');
             second.classList.add('matched');
             matchedPairs.push(first.dataset.key);
-            
             totalScore += 10;
             scoreText.textContent = `⭐ ${totalScore}`;
-            
             playCorrect();
             playScore();
             showFeedback('correct', '✅ Betul! Padanan yang tepat!');
-            
             selectedLeft = null;
-            
             const total = activities[currentActivity].levels[currentLevel].pairs.length;
-            if (matchedPairs.length === total) {
-                setTimeout(() => finishLevel(), 900);
-            }
+            if (matchedPairs.length === total) setTimeout(() => finishLevel(), 900);
         } else {
             first.classList.remove('selected');
             first.classList.add('wrong-match');
             second.classList.add('wrong-match');
-            
             playWrong();
             showFeedback('wrong', '❌ Salah padanan. Cuba lagi!');
-            
             setTimeout(() => {
                 first.classList.remove('wrong-match');
                 second.classList.remove('wrong-match');
             }, 500);
-            
             selectedLeft = null;
         }
     }
@@ -460,10 +411,8 @@ function selectMatch(el) {
    ===================================================== */
 function renderDrag(level) {
     const items = shuffle([...level.items]);
-    
     let html = `<p class="question-text">${level.question}</p>`;
-    html += `<div class="drag-wrapper">`;
-    html += `<div class="drag-pool" id="dragPool">`;
+    html += `<div class="drag-wrapper"><div class="drag-pool" id="dragPool">`;
     items.forEach(item => {
         html += `<div class="drag-item" draggable="true" data-id="${item.id}" 
                     ondragstart="dragStart(event)" ondragend="dragEnd(event)"
@@ -471,8 +420,7 @@ function renderDrag(level) {
                     ${item.emoji} ${item.label}
                  </div>`;
     });
-    html += `</div>`;
-    html += `<div class="drop-zones">`;
+    html += `</div><div class="drop-zones">`;
     level.zones.forEach(zone => {
         html += `<div class="drop-zone" data-id="${zone.id}" 
                     ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)">
@@ -482,7 +430,6 @@ function renderDrag(level) {
                  </div>`;
     });
     html += `</div></div>`;
-    
     activityContent.innerHTML = html;
 }
 
@@ -492,44 +439,28 @@ function dragStart(e) {
     e.target.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
 }
-
-function dragEnd(e) {
-    e.target.classList.remove('dragging');
-}
-
-function dragOver(e) {
-    e.preventDefault();
-    e.currentTarget.classList.add('over');
-}
-
-function dragLeave(e) {
-    e.currentTarget.classList.remove('over');
-}
+function dragEnd(e) { e.target.classList.remove('dragging'); }
+function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('over'); }
+function dragLeave(e) { e.currentTarget.classList.remove('over'); }
 
 function dropItem(e) {
     e.preventDefault();
     const zone = e.currentTarget;
     zone.classList.remove('over');
-    
     if (!draggedItem) return;
     if (zone.classList.contains('filled')) return;
-    
     const itemId = draggedItem.dataset.id;
     const zoneId = zone.dataset.id;
-    
     if (itemId === zoneId) {
         zone.classList.add('filled');
         zone.querySelector('.zone-slot').innerHTML = draggedItem.innerHTML;
         draggedItem.classList.add('correct');
         draggedItem.setAttribute('draggable', 'false');
         draggedItem.style.display = 'none';
-        
         totalScore += 10;
         scoreText.textContent = `⭐ ${totalScore}`;
-        
         playDrop();
         setTimeout(() => playCorrect(), 100);
-        
         showFeedback('correct', '✅ Tepat sekali!');
         checkDragComplete();
     } else {
@@ -538,19 +469,15 @@ function dropItem(e) {
         showFeedback('wrong', '❌ Bukan di sini. Cuba tempat lain!');
         setTimeout(() => zone.classList.remove('wrong'), 500);
     }
-    
     draggedItem = null;
 }
 
-// Touch support
 let touchClone = null;
 function touchStart(e) {
     const target = e.target.closest('.drag-item');
     if (!target || target.classList.contains('correct')) return;
-    
     draggedItem = target;
     const touch = e.touches[0];
-    
     touchClone = target.cloneNode(true);
     touchClone.style.position = 'fixed';
     touchClone.style.zIndex = '9999';
@@ -568,7 +495,6 @@ function touchMove(e) {
     const touch = e.touches[0];
     touchClone.style.left = (touch.clientX - 50) + 'px';
     touchClone.style.top = (touch.clientY - 25) + 'px';
-    
     document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
     const el = document.elementFromPoint(touch.clientX, touch.clientY);
     const zone = el ? el.closest('.drop-zone') : null;
@@ -580,18 +506,15 @@ function touchEnd(e) {
     const touch = e.changedTouches[0];
     const el = document.elementFromPoint(touch.clientX, touch.clientY);
     const zone = el ? el.closest('.drop-zone') : null;
-    
     if (zone && draggedItem && !zone.classList.contains('filled')) {
         const itemId = draggedItem.dataset.id;
         const zoneId = zone.dataset.id;
-        
         if (itemId === zoneId) {
             zone.classList.add('filled');
             zone.classList.remove('over');
             zone.querySelector('.zone-slot').innerHTML = draggedItem.innerHTML;
             draggedItem.classList.add('correct');
             draggedItem.style.display = 'none';
-            
             totalScore += 10;
             scoreText.textContent = `⭐ ${totalScore}`;
             playDrop();
@@ -605,7 +528,6 @@ function touchEnd(e) {
             setTimeout(() => zone.classList.remove('wrong'), 500);
         }
     }
-    
     document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
     if (draggedItem) draggedItem.style.opacity = '1';
     touchClone.remove();
@@ -616,9 +538,7 @@ function touchEnd(e) {
 function checkDragComplete() {
     const totalItems = activities[currentActivity].levels[currentLevel].items.length;
     const correctItems = document.querySelectorAll('.drag-item.correct').length;
-    if (correctItems === totalItems) {
-        setTimeout(() => finishLevel(), 900);
-    }
+    if (correctItems === totalItems) setTimeout(() => finishLevel(), 900);
 }
 
 /* =====================================================
@@ -626,7 +546,6 @@ function checkDragComplete() {
    ===================================================== */
 function renderMemory(level) {
     const cards = shuffle([...level.cards]);
-    
     let html = `<p class="question-text">${level.question}</p>`;
     html += `<div class="memory-grid" id="memoryGrid">`;
     cards.forEach((card, i) => {
@@ -642,22 +561,18 @@ function renderMemory(level) {
             </div>`;
     });
     html += `</div>`;
-    
     activityContent.innerHTML = html;
 }
 
 function flipCard(card) {
     if (lockBoard) return;
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
-    
     playFlip();
     card.classList.add('flipped');
     flippedCards.push(card);
-    
     if (flippedCards.length === 2) {
         lockBoard = true;
         const [a, b] = flippedCards;
-        
         if (a.dataset.match === b.dataset.match) {
             setTimeout(() => {
                 a.classList.add('matched');
@@ -667,14 +582,10 @@ function flipCard(card) {
                 scoreText.textContent = `⭐ ${totalScore}`;
                 playCorrect();
                 showFeedback('correct', '✅ Padanan memori yang tepat!');
-                
                 flippedCards = [];
                 lockBoard = false;
-                
                 const totalPairs = activities[currentActivity].levels[currentLevel].cards.length / 2;
-                if (matchedMemory === totalPairs) {
-                    setTimeout(() => finishLevel(), 900);
-                }
+                if (matchedMemory === totalPairs) setTimeout(() => finishLevel(), 900);
             }, 500);
         } else {
             playWrong();
@@ -708,16 +619,15 @@ function finishLevel() {
 function showResult() {
     activityArea.classList.add('hidden');
     resultArea.classList.remove('hidden');
-    
     const maxScore = calculateMaxScore();
     const percent = Math.round((totalScore / maxScore) * 100);
-    
     let emoji, title, text;
     if (percent >= 80) {
         emoji = '🏆';
         title = 'Cemerlang!';
         text = `Hebat! Anda mendapat ${totalScore} markah (${percent}%). Anda sudah kenal otot-otot regangan dengan baik!`;
         playVictory();
+        createConfetti();
     } else if (percent >= 50) {
         emoji = '👍';
         title = 'Bagus!';
@@ -729,15 +639,42 @@ function showResult() {
         text = `Anda mendapat ${totalScore} markah (${percent}%). Jangan putus asa, cuba lagi!`;
         playLevelComplete();
     }
-    
     resultEmoji.textContent = emoji;
     resultTitle.textContent = title;
     resultText.textContent = text;
+    
+    const stars = percent >= 80 ? 5 : percent >= 60 ? 4 : percent >= 40 ? 3 : percent >= 20 ? 2 : 1;
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < stars) {
+            starsHtml += `<span class="star-filled" style="animation-delay: ${i * 0.15}s">⭐</span>`;
+        } else {
+            starsHtml += `<span style="opacity: 0.25">⭐</span>`;
+        }
+    }
+    starsDisplay.innerHTML = starsHtml;
     
     if (currentActivity >= 5) {
         nextBtn.style.display = 'none';
     } else {
         nextBtn.style.display = 'inline-block';
+    }
+}
+
+function createConfetti() {
+    const container = document.getElementById('confetti');
+    container.innerHTML = '';
+    const colors = ['#FFD93D', '#FF6B6B', '#43e97b', '#4facfe', '#f093fb', '#FFA500'];
+    for (let i = 0; i < 40; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + '%';
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDelay = Math.random() * 2 + 's';
+        conf.style.animationDuration = (2 + Math.random() * 2) + 's';
+        conf.style.width = (6 + Math.random() * 10) + 'px';
+        conf.style.height = (6 + Math.random() * 10) + 'px';
+        container.appendChild(conf);
     }
 }
 
@@ -757,16 +694,11 @@ function calculateMaxScore() {
    NAVIGASI
    ===================================================== */
 function nextActivity() {
-    if (currentActivity < 5) {
-        startActivity(currentActivity + 1);
-    } else {
-        goHome();
-    }
+    if (currentActivity < 5) startActivity(currentActivity + 1);
+    else goHome();
 }
 
-function retryActivity() {
-    startActivity(currentActivity);
-}
+function retryActivity() { startActivity(currentActivity); }
 
 function goBack() {
     playPick();
@@ -801,7 +733,6 @@ function showFeedback(type, msg) {
     feedback.classList.remove('hidden');
 }
 
-// Init audio pada sentuhan pertama
 document.addEventListener('click', function initOnce() {
     initAudio();
     document.removeEventListener('click', initOnce);
