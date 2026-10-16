@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PJPK Tahun 4 - Otot Regangan</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -14,66 +14,72 @@
             <div class="header-content">
                 <h1>💪 Jom Kenal Otot!</h1>
                 <p>Pendidikan Jasmani dan Pendidikan Kesihatan Tahun 4</p>
-                <p class="subtitle">Standard Kandungan 4.3.1 - Menyebut otot-otot utama semasa senaman regangan</p>
+                <p class="subtitle">Standard Kandungan 4.3.1 - Otot Utama Semasa Senaman Regangan</p>
             </div>
         </header>
 
         <!-- Maklumat Umum -->
-        <section class="info-section">
+        <section class="info-section" id="infoSection">
             <div class="info-card">
                 <h2>📋 Maklumat Umum</h2>
                 <div class="info-grid">
                     <div class="info-item">
-                        <span class="label">Mata Pelajaran:</span>
+                        <span class="label">Mata Pelajaran</span>
                         <span>Pendidikan Jasmani dan Pendidikan Kesihatan</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Tahun:</span>
-                        <span>4 (Pendidikan Khas)</span>
+                        <span class="label">Tahun / Program</span>
+                        <span>Tahun 4 - Pendidikan Khas (Pembelajaran)</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Tajuk:</span>
+                        <span class="label">Tajuk</span>
                         <span>Kecergasan Fizikal - Kelenturan</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Standard Kandungan:</span>
+                        <span class="label">Standard Kandungan</span>
                         <span>4.3 Berkebolehan mengaplikasikan konsep asas kelenturan</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Standard Pembelajaran:</span>
+                        <span class="label">Standard Pembelajaran</span>
                         <span>4.3.1 Menyebut otot-otot utama yang terlibat semasa melakukan senaman regangan</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Objektif:</span>
-                        <span>Murid dapat menyebut dan mengenal pasti otot utama yang terlibat dalam senaman regangan.</span>
+                        <span class="label">Objektif</span>
+                        <span>Murid dapat menyebut dan mengenal pasti sekurang-kurangnya 4 otot utama dalam senaman regangan.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Menu Utama -->
-        <section class="menu-section">
+        <section class="menu-section" id="menuSection">
             <h2>🎮 Pilih Aktiviti</h2>
+            <p class="menu-hint">Setiap aktiviti mempunyai 2 level. Siapkan semua untuk jadi Juara Otot!</p>
             <div class="menu-grid">
-                <button class="menu-btn" onclick="startActivity(1)">
+                <button class="menu-btn btn-match" onclick="startActivity(1)">
                     <span class="icon">🦵</span>
-                    <span class="text">Aktiviti 1<br><small>Otot Paha</small></span>
+                    <span class="text">Aktiviti 1<br><small>Padanan Otot Paha</small></span>
+                    <span class="badge">Padanan</span>
                 </button>
-                <button class="menu-btn" onclick="startActivity(2)">
+                <button class="menu-btn btn-drag" onclick="startActivity(2)">
                     <span class="icon">💪</span>
-                    <span class="text">Aktiviti 2<br><small>Otot Bahu</small></span>
+                    <span class="text">Aktiviti 2<br><small>Drag & Drop Bahu</small></span>
+                    <span class="badge">Seret</span>
                 </button>
-                <button class="menu-btn" onclick="startActivity(3)">
+                <button class="menu-btn btn-memory" onclick="startActivity(3)">
                     <span class="icon">🤚</span>
-                    <span class="text">Aktiviti 3<br><small>Otot Tangan</small></span>
+                    <span class="text">Aktiviti 3<br><small>Memori Otot Tangan</small></span>
+                    <span class="badge">Memori</span>
                 </button>
-                <button class="menu-btn" onclick="startActivity(4)">
+                <button class="menu-btn btn-match" onclick="startActivity(4)">
                     <span class="icon">🧘</span>
-                    <span class="text">Aktiviti 4<br><small>Otot Badan Atas</small></span>
+                    <span class="text">Aktiviti 4<br><small>Padanan Badan Atas</small></span>
+                    <span class="badge">Padanan</span>
                 </button>
-                <button class="menu-btn" onclick="startActivity(5)">
+                <button class="menu-btn btn-drag" onclick="startActivity(5)">
                     <span class="icon">🏆</span>
                     <span class="text">Aktiviti 5<br><small>Cabaran Akhir</small></span>
+                    <span class="badge">Seret</span>
                 </button>
             </div>
         </section>
@@ -89,6 +95,7 @@
                 <div class="progress-bar">
                     <div id="progressFill" class="progress-fill"></div>
                 </div>
+                <span id="scoreText">⭐ 0</span>
             </div>
             <div id="activityContent" class="activity-content"></div>
             <div id="feedback" class="feedback hidden"></div>
@@ -96,15 +103,19 @@
 
         <!-- Keputusan -->
         <section id="resultArea" class="result-area hidden">
-            <h2>🎉 Tahniah!</h2>
+            <div class="result-emoji" id="resultEmoji">🎉</div>
+            <h2 id="resultTitle">Tahniah!</h2>
             <p id="resultText"></p>
-            <button class="next-btn" onclick="nextActivity()">Aktiviti Seterusnya ➡️</button>
-            <button class="home-btn" onclick="goHome()">🏠 Menu Utama</button>
+            <div class="result-buttons">
+                <button class="next-btn" id="nextBtn" onclick="nextActivity()">Aktiviti Seterusnya ➡️</button>
+                <button class="retry-btn" onclick="retryActivity()">🔄 Cuba Lagi</button>
+                <button class="home-btn" onclick="goHome()">🏠 Menu Utama</button>
+            </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>© 2026 PPKI SK SEGAMAT BARU</p>
+            <p>© 2026 SK SEGAMAT BARU</p>
         </footer>
     </div>
     <script src="script.js"></script>
