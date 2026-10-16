@@ -5,84 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PJPK Tahun 4 - Otot Regangan</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Awan Kartun Latar Belakang -->
+    <div class="clouds-bg">
+        <div class="cloud cloud-1">☁️</div>
+        <div class="cloud cloud-2">☁️</div>
+        <div class="cloud cloud-3">☁️</div>
+        <div class="cloud cloud-4">☁️</div>
+        <div class="star star-1">⭐</div>
+        <div class="star star-2">✨</div>
+        <div class="star star-3">⭐</div>
+        <div class="star star-4">💫</div>
+    </div>
+
     <div class="container">
-        <!-- Header -->
+        <!-- Header Kartun -->
         <header class="header">
             <div class="header-content">
-                <h1>💪 Jom Kenal Otot!</h1>
-                <p>Pendidikan Jasmani dan Pendidikan Kesihatan Tahun 4</p>
-                <p class="subtitle">Standard Kandungan 4.3.1 - Otot Utama Semasa Senaman Regangan</p>
-                <button class="sound-toggle" id="soundToggle" onclick="toggleSound()" title="Hidup/Mati Bunyi">
-                    🔊 Bunyi: ON
+                <div class="mascot">💪</div>
+                <h1 class="cartoon-title">Jom Kenal Otot!</h1>
+                <p class="header-sub">Pendidikan Jasmani dan Pendidikan Kesihatan Tahun 4</p>
+                <div class="subtitle-bubble">
+                    <span>🎯 Standard 4.3.1 - Otot Utama Senaman Regangan</span>
+                </div>
+                <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+                    <span id="soundIcon">🔊</span>
+                    <span id="soundLabel">Bunyi ON</span>
                 </button>
             </div>
+            <div class="header-wave"></div>
         </header>
 
-        <!-- Maklumat Umum -->
+        <!-- Maklumat Umum Kartun -->
         <section class="info-section" id="infoSection">
             <div class="info-card">
-                <h2>📋 Maklumat Umum</h2>
+                <h2 class="section-title">
+                    <span class="title-icon bounce-icon">📋</span>
+                    <span>Maklumat Umum</span>
+                </h2>
                 <div class="info-grid">
-                    <div class="info-item">
-                        <span class="label">Mata Pelajaran</span>
-                        <span>Pendidikan Jasmani dan Pendidikan Kesihatan</span>
+                    <div class="info-item item-blue">
+                        <div class="info-icon-big">📚</div>
+                        <div class="info-content">
+                            <span class="label">Mata Pelajaran</span>
+                            <span class="value">Pendidikan Jasmani dan Pendidikan Kesihatan</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Tahun / Program</span>
-                        <span>Tahun 4 - Pendidikan Khas (Pembelajaran)</span>
+                    <div class="info-item item-pink">
+                        <div class="info-icon-big">🎓</div>
+                        <div class="info-content">
+                            <span class="label">Tahun / Program</span>
+                            <span class="value">Tahun 4 - Pendidikan Khas (Pembelajaran)</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Tajuk</span>
-                        <span>Kecergasan Fizikal - Kelenturan</span>
+                    <div class="info-item item-yellow">
+                        <div class="info-icon-big">🏃</div>
+                        <div class="info-content">
+                            <span class="label">Tajuk</span>
+                            <span class="value">Kecergasan Fizikal - Kelenturan</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Standard Kandungan</span>
-                        <span>4.3 Berkebolehan mengaplikasikan konsep asas kelenturan</span>
+                    <div class="info-item item-green">
+                        <div class="info-icon-big">🎯</div>
+                        <div class="info-content">
+                            <span class="label">Standard Kandungan</span>
+                            <span class="value">4.3 Berkebolehan mengaplikasikan konsep asas kelenturan</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Standard Pembelajaran</span>
-                        <span>4.3.1 Menyebut otot-otot utama yang terlibat semasa melakukan senaman regangan</span>
+                    <div class="info-item item-purple">
+                        <div class="info-icon-big">📝</div>
+                        <div class="info-content">
+                            <span class="label">Standard Pembelajaran</span>
+                            <span class="value">4.3.1 Menyebut otot-otot utama yang terlibat semasa melakukan senaman regangan</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="label">Objektif</span>
-                        <span>Murid dapat menyebut dan mengenal pasti sekurang-kurangnya 4 otot utama dalam senaman regangan.</span>
+                    <div class="info-item item-orange">
+                        <div class="info-icon-big">🌟</div>
+                        <div class="info-content">
+                            <span class="label">Objektif</span>
+                            <span class="value">Murid dapat menyebut dan mengenal pasti sekurang-kurangnya 4 otot utama dalam senaman regangan.</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Menu Utama -->
+        <!-- Menu Utama Kartun -->
         <section class="menu-section" id="menuSection">
-            <h2>🎮 Pilih Aktiviti</h2>
-            <p class="menu-hint">Setiap aktiviti mempunyai 2 level. Siapkan semua untuk jadi Juara Otot!</p>
+            <h2 class="section-title big-title">
+                <span class="title-icon wiggle">🎮</span>
+                <span>Pilih Aktiviti</span>
+            </h2>
+            <p class="menu-hint">
+                <span class="hint-icon">👇</span>
+                Setiap aktiviti ada 2 level! Siapkan semua untuk jadi Juara Otot! 🏆
+            </p>
             <div class="menu-grid">
                 <button class="menu-btn btn-match" onclick="startActivity(1)">
-                    <span class="icon">🦵</span>
-                    <span class="text">Aktiviti 1<br><small>Padanan Otot Paha</small></span>
-                    <span class="badge">Padanan</span>
+                    <span class="icon bounce-icon">🦵</span>
+                    <span class="text">Padanan<br><small>Otot Paha</small></span>
+                    <span class="badge badge-match">🃏 Padanan</span>
                 </button>
                 <button class="menu-btn btn-drag" onclick="startActivity(2)">
-                    <span class="icon">💪</span>
-                    <span class="text">Aktiviti 2<br><small>Drag & Drop Bahu</small></span>
-                    <span class="badge">Seret</span>
+                    <span class="icon bounce-icon">💪</span>
+                    <span class="text">Drag & Drop<br><small>Otot Bahu</small></span>
+                    <span class="badge badge-drag">👆 Seret</span>
                 </button>
                 <button class="menu-btn btn-memory" onclick="startActivity(3)">
-                    <span class="icon">🤚</span>
-                    <span class="text">Aktiviti 3<br><small>Memori Otot Tangan</small></span>
-                    <span class="badge">Memori</span>
+                    <span class="icon bounce-icon">🤚</span>
+                    <span class="text">Memori<br><small>Otot Tangan</small></span>
+                    <span class="badge badge-memory">🧠 Memori</span>
                 </button>
-                <button class="menu-btn btn-match" onclick="startActivity(4)">
-                    <span class="icon">🧘</span>
-                    <span class="text">Aktiviti 4<br><small>Padanan Badan Atas</small></span>
-                    <span class="badge">Padanan</span>
+                <button class="menu-btn btn-match2" onclick="startActivity(4)">
+                    <span class="icon bounce-icon">🧘</span>
+                    <span class="text">Padanan<br><small>Badan Atas</small></span>
+                    <span class="badge badge-match2">🃏 Padanan</span>
                 </button>
-                <button class="menu-btn btn-drag" onclick="startActivity(5)">
-                    <span class="icon">🏆</span>
-                    <span class="text">Aktiviti 5<br><small>Cabaran Akhir</small></span>
-                    <span class="badge">Seret</span>
+                <button class="menu-btn btn-final" onclick="startActivity(5)">
+                    <span class="icon rotate-icon">🏆</span>
+                    <span class="text">Cabaran Akhir<br><small>Semua Otot</small></span>
+                    <span class="badge badge-final">⭐ Juara</span>
                 </button>
             </div>
         </section>
@@ -91,34 +135,44 @@
         <section id="activityArea" class="activity-area hidden">
             <div class="activity-header">
                 <h2 id="activityTitle"></h2>
-                <button class="back-btn" onclick="goBack()">⬅️ Kembali</button>
+                <button class="back-btn" onclick="goBack()">
+                    <span>⬅️</span> Kembali
+                </button>
             </div>
             <div class="level-indicator">
-                <span id="levelText">Level 1</span>
+                <span id="levelText" class="level-pill">🎯 Level 1</span>
                 <div class="progress-bar">
                     <div id="progressFill" class="progress-fill"></div>
                 </div>
-                <span id="scoreText">⭐ 0</span>
+                <span id="scoreText" class="score-pill">⭐ 0</span>
             </div>
             <div id="activityContent" class="activity-content"></div>
             <div id="feedback" class="feedback hidden"></div>
         </section>
 
-        <!-- Keputusan -->
+        <!-- Keputusan Kartun -->
         <section id="resultArea" class="result-area hidden">
+            <div class="confetti-container" id="confetti"></div>
             <div class="result-emoji" id="resultEmoji">🎉</div>
-            <h2 id="resultTitle">Tahniah!</h2>
-            <p id="resultText"></p>
+            <h2 id="resultTitle" class="result-title">Tahniah!</h2>
+            <p id="resultText" class="result-text"></p>
+            <div class="stars-display" id="starsDisplay"></div>
             <div class="result-buttons">
-                <button class="next-btn" id="nextBtn" onclick="nextActivity()">Aktiviti Seterusnya ➡️</button>
-                <button class="retry-btn" onclick="retryActivity()">🔄 Cuba Lagi</button>
-                <button class="home-btn" onclick="goHome()">🏠 Menu Utama</button>
+                <button class="next-btn" id="nextBtn" onclick="nextActivity()">
+                    ➡️ Aktiviti Seterusnya
+                </button>
+                <button class="retry-btn" onclick="retryActivity()">
+                    🔄 Cuba Lagi
+                </button>
+                <button class="home-btn" onclick="goHome()">
+                    🏠 Menu Utama
+                </button>
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>© 2026 SL SEGAMAT BARU</p>
+            <p>🌟 © 2026 SK SEGAMAT BARU 🌟</p>
         </footer>
     </div>
     <script src="script.js"></script>
