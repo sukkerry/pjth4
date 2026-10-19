@@ -52,6 +52,48 @@ function beep(f, d = .15, type = "sine") {
   } catch (e) {}
 }
 
+
+/* ---------- MUZIK LATAR & BUNYI ENJIN ---------- */
+let musicOn = true, mGain, eGain, eOsc, mTimer, nextT = 0, mStep = 0;
+const MEL = [523,659,784,659, 880,784,659,523, 587,698,880,698, 784,659,587,523,
+             523,784,1047,784, 880,988,880,784, 698,880,1047,880, 784,659,523,0];
+const BASS = [131,131,196,196, 175,175,196,196];
+function tone(f, t, d, type, vol, dest) {
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type; o.frequency.value = f;
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + d);
+  o.connect(g); g.connect(dest); o.start(t); o.stop(t + d + .02);
+}
+function sched() {
+  while (nextT < ac.currentTime + .4) {
+    const m = MEL[mStep % 32];
+    if (m) tone(m, nextT, .22, "triangle", .16, mGain);
+    if (mStep % 2 === 0) tone(BASS[(mStep >> 2) % 8], nextT, .3, "square", .05, mGain);
+    if (mStep % 4 === 2) tone(1800, nextT, .04, "square", .02, mGain);   // ketukan kecil
+    nextT += .19; mStep++;
+  }
+}
+function startMusic() {
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === "suspended") ac.resume();
+    if (mTimer) return;
+    mGain = ac.createGain(); mGain.gain.value = .5; mGain.connect(ac.destination);
+    eGain = ac.createGain(); eGain.gain.value = 0; eGain.connect(ac.destination);
+    eOsc = ac.createOscillator(); eOsc.type = "sawtooth"; eOsc.frequency.value = 70; eOsc.connect(eGain); eOsc.start();
+    nextT = ac.currentTime + .1; mTimer = setInterval(sched, 100);
+  } catch (e) {}
+}
+function audioUpdate() {
+  if (!mGain) return;
+  const t = ac.currentTime;
+  mGain.gain.setTargetAtTime(!musicOn ? 0 : state === "quiz" ? .2 : .5, t, .15);
+  eGain.gain.setTargetAtTime(musicOn && state === "play" ? .025 : 0, t, .1);
+  if (S) eOsc.frequency.setTargetAtTime(65 + S.c.speed * 60 + Math.sin(bgT * 9) * 6, t, .05);
+}
+["pointerdown", "keydown"].forEach(ev => addEventListener(ev, startMusic));
+$("mute").onclick = () => { musicOn = !musicOn; $("mute").textContent = musicOn ? "🔊" : "🔇"; startMusic(); };
+
 /* ---------- STATE ---------- */
 let S = null, state = "menu", last = 0, bgT = 0, shake = 0;
 const clouds = Array.from({length:5}, (_, i) => ({x:Math.random(), y:.03 + Math.random() * .14, s:.6 + Math.random() * .8, v:.01 + Math.random() * .02}));
@@ -272,6 +314,7 @@ function draw(dt) {
 }
 function loop(now) {
   const dt = Math.min(.05, (now - last) / 1000 || 0); last = now;
+  audioUpdate();
   if (state === "play") update(dt); else if (S && state === "quiz") { parts.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 500 * dt; p.l -= dt; }); parts = parts.filter(p => p.l > 0); }
   draw(state === "quiz" ? 0 : dt);
   requestAnimationFrame(loop);
