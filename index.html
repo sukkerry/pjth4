@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Lari Hindari Kuman!</title>
+<title>Pandu Hindari Kuman!</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,8 +24,8 @@
 <!-- MENU -->
 <section id="menu" class="screen">
   <div class="card">
-    <h1>🦠 Lari Hindari Kuman! 🏃</h1>
-    <p class="sub">Mengelak kuman &amp; kutip sabun, air dan buah. Jawab soalan untuk jadi juara!</p>
+    <h1>🦠 Pandu Hindari Kuman! 🚗</h1>
+    <p class="sub">Pandu kereta, elak kuman &amp; kutip sabun, air dan buah. Jawab soalan untuk jadi juara!</p>
 
     <div class="info">
       <p><b>📘 Tajuk:</b> Pendidikan Kesihatan – Modul 3: Kesihatan<br>2.0 Kesihatan dan Alam Sekitar (Penyakit)</p>
@@ -34,6 +34,14 @@
       <p><b>🎯 Objektif:</b> Murid boleh
         <br>1. Menyatakan penyakit berpunca dari kuman
         <br>2. Menerangkan maksud kuman dan cara kuman merebak</p>
+    </div>
+
+    <h2>Pilih Kenderaan</h2>
+    <div class="cars">
+      <button class="carbtn sel" data-c="merah">🚗<small>Kereta Merah</small></button>
+      <button class="carbtn" data-c="biru">🚙<small>Kereta Biru</small></button>
+      <button class="carbtn" data-c="bas">🚌<small>Bas Sekolah</small></button>
+      <button class="carbtn" data-c="polis">🚓<small>Kereta Polis</small></button>
     </div>
 
     <h2>Pilih Tahap</h2>
@@ -59,6 +67,7 @@
 <!-- KEPUTUSAN -->
 <section id="result" class="screen hidden">
   <div class="card">
+    <div id="rTrophy" class="hidden"><span class="sp s1">✨</span><span class="sp s2">🎉</span><span class="tr">🏆</span><span class="sp s3">🌟</span><span class="sp s4">🎊</span></div>
     <h1 id="rTitle"></h1>
     <div id="rStars"></div>
     <p id="rText"></p>
