@@ -151,7 +151,7 @@ function update(dt) {
       } else { S.score += 10; burst(p.x, p.y, 12, "✨"); beep(1000, .12); hud(); if (state === "play") return askQuestion("🎁 Kamu kutip " + o.e + "!"); }
     } else if (!o.done && o.t >= 1.1) {
       o.done = true;
-      if (o.bad) { S.dodges++; S.score += 5; hud(); if (S.dodges % 3 === 0 && state === "play") return askQuestion("🏃 Hebat mengelak kuman!"); }
+      if (o.bad) { S.dodges++; S.score += 5; hud(); if (S.dodges % 3 === 0 && state === "play") return askQuestion("🚗 Hebat mengelak kuman!"); }
     }
   }
   S.objs = S.objs.filter(o => o.t < 1.3);
@@ -163,7 +163,8 @@ function finish() {
   ["hud", "touch"].forEach(i => $(i).classList.add("hidden"));
   const win = S.lives > 0, ratio = S.correct / S.total;
   const stars = !win ? 0 : ratio > .8 ? 3 : ratio > .5 ? 2 : 1;
-  $("rTitle").textContent = win ? "🎉 Tahniah, Juara Kuman!" : "💪 Cuba Lagi!";
+  $("rTrophy").classList.toggle("hidden", !win);
+  $("rTitle").textContent = win ? "🎉 Tahniah, Juara Kuman! Kamu dapat piala!" : "💪 Cuba Lagi!";
   $("rStars").innerHTML = [0, 1, 2].map(i => `<span style="animation-delay:${i * .25}s">${i < stars ? "⭐" : "☆"}</span>`).join("");
   $("rText").textContent = `Skor: ${S.score} | Jawapan betul: ${S.correct}/${S.total}. ` + (win ? "Ingat: kuman penyebab selesema, demam dan cirit-birit. Cuci tangan dan jaga kebersihan!" : "Jangan putus asa, kamu pasti boleh!");
   $("result").classList.remove("hidden");
@@ -182,6 +183,44 @@ function pos(lane, t) {
 function emoji(e, x, y, size, rot = 0) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.font = size + "px serif";
   ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(e, 0, 0); ctx.restore();
+}
+let carType = "merah";
+const CARS = {
+  merah:{body:"#ff3b5c", cab:"#ff6b81"},
+  biru:{body:"#2f80ed", cab:"#56a0ff"},
+  bas:{body:"#ffc107", cab:"#ffd54f"},
+  polis:{body:"#f1f5f9", cab:"#2f5bd3"}
+};
+document.querySelectorAll("[data-c]").forEach(b => b.onclick = () => {
+  carType = b.dataset.c;
+  document.querySelectorAll("[data-c]").forEach(x => x.classList.toggle("sel", x === b));
+  beep(700, .1);
+});
+function car(x, y, s, tilt) {
+  const rr = (a, b, w, h, r, c) => { ctx.fillStyle = c; ctx.beginPath(); ctx.roundRect(a, b, w, h, r); ctx.fill(); };
+  const C = CARS[carType], blink = Math.floor(bgT * 4) % 2;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(tilt); ctx.scale(s / 100, s / 100);
+  rr(-52, 8, 18, 34, 6, "#222"); rr(34, 8, 18, 34, 6, "#222");
+  if (carType === "bas") {
+    rr(-48, -56, 96, 98, 14, C.body);
+    rr(-40, -48, 80, 28, 6, "#bde7ff");
+    rr(-48, -8, 96, 8, 0, "#222");
+    ctx.fillStyle = "#222"; ctx.font = "bold 9px sans-serif"; ctx.textAlign = "center"; ctx.fillText("BAS SEKOLAH", 0, 4);
+  } else {
+    rr(-46, -22, 92, 62, 16, C.body);
+    rr(-33, -52, 66, 38, 14, C.cab);
+    rr(-27, -46, 54, 24, 8, "#bde7ff");
+    if (carType === "polis") {
+      rr(-46, -6, 92, 8, 0, "#2f5bd3");
+      rr(-18, -62, 18, 12, 4, blink ? "#ff1744" : "#7a0c20");
+      rr(0, -62, 18, 12, 4, blink ? "#1e3a8a" : "#4da3ff");
+    }
+  }
+  rr(-40, 6, 20, 12, 5, blink ? "#ffd166" : "#fff3b0");
+  rr(20, 6, 20, 12, 5, blink ? "#ffd166" : "#fff3b0");
+  rr(-15, 18, 30, 14, 4, "#fff");
+  ctx.fillStyle = "#3b2a6b"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center"; ctx.fillText("SIHAT", 0, 29);
+  ctx.restore();
 }
 function draw(dt) {
   bgT += dt;
@@ -225,7 +264,7 @@ function draw(dt) {
     const p = pos(S.px, 1), sz = 95 * Math.min(1, H / 650), bob = Math.abs(Math.sin(bgT * 12)) * 10;
     ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.beginPath(); ctx.ellipse(p.x, p.y + sz * .5, sz * .35, sz * .1, 0, 0, 7); ctx.fill();
     ctx.globalAlpha = S.safe > 0 && Math.floor(bgT * 10) % 2 ? .4 : 1;
-    emoji("🏃", p.x, p.y - bob, sz, (S.lane - S.px) * .3);
+    car(p.x, p.y - bob * .3, sz, (S.lane - S.px) * .25);
     ctx.globalAlpha = 1;
     parts.forEach(q => { ctx.globalAlpha = Math.min(1, q.l); emoji(q.e, q.x, q.y, 28); }); ctx.globalAlpha = 1;
   }
