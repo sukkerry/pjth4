@@ -48,4 +48,15 @@ h2{font-size:clamp(18px,4.5vw,26px);margin:8px 0}
 @keyframes spin{from{transform:rotate(-360deg) scale(0)}}
 #rText{font-size:clamp(15px,4vw,20px);margin:6px 0 10px}
 
+.cars{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.carbtn{font:inherit;font-size:clamp(26px,7vw,38px);background:#fff;border:4px solid #cbd5e1;border-radius:20px;padding:6px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;min-width:76px;transition:transform .15s}
+.carbtn small{font-size:clamp(10px,2.6vw,12px);font-weight:bold;color:#3b2a6b}
+.carbtn:hover{transform:scale(1.08)}
+.carbtn.sel{border-color:#2dc653;background:#e6ffed;transform:scale(1.1);box-shadow:0 0 0 4px rgba(45,198,83,.3)}
+#rTrophy{position:relative;display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:4px}
+#rTrophy .tr{font-size:clamp(80px,24vw,130px);animation:trophy 1.4s ease-in-out infinite;filter:drop-shadow(0 0 18px #ffd60a)}
+#rTrophy .sp{font-size:clamp(24px,7vw,40px);animation:twinkle 1s ease-in-out infinite}
+#rTrophy .s2{animation-delay:.25s}#rTrophy .s3{animation-delay:.5s}#rTrophy .s4{animation-delay:.75s}
+@keyframes trophy{0%,100%{transform:translateY(0) rotate(-5deg) scale(1)}50%{transform:translateY(-12px) rotate(5deg) scale(1.12)}}
+@keyframes twinkle{50%{transform:scale(1.6) rotate(25deg);opacity:.5}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
