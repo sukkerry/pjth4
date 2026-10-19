@@ -11,6 +11,8 @@ html,body{height:100%;overflow:hidden;font-family:"Comic Sans MS","Chalkboard SE
 #touch button{pointer-events:auto;width:clamp(60px,18vw,90px);height:clamp(60px,18vw,90px);border-radius:50%;border:4px solid #fff;background:#ff6b9d;font-size:clamp(26px,8vw,40px);box-shadow:0 6px 0 #c9184a;opacity:.85}
 #touch button:active{transform:translateY(4px);box-shadow:0 2px 0 #c9184a}
 
+#mute{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:20;width:52px;height:52px;border-radius:50%;border:4px solid #fff;background:#9b5de5;font-size:24px;box-shadow:0 5px 0 #6a2fc0;cursor:pointer}
+#mute:active{transform:translateX(-50%) translateY(3px)}
 .screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(40,20,90,.45);overflow-y:auto;z-index:5}
 .card{background:#fffbea;border:6px solid #ffb703;border-radius:30px;padding:clamp(14px,3vw,28px);max-width:640px;width:100%;max-height:100%;overflow-y:auto;text-align:center;box-shadow:0 10px 0 #fb8500,0 20px 40px rgba(0,0,0,.3);animation:pop .6s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pop{from{transform:scale(.3) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
